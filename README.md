@@ -1,113 +1,139 @@
-# Data Warehouse and Analytics Project
+# Integrated ERP/CRM SQL Data Warehouse & BI Analytics Pipeline 🏗️
 
-Welcome to the **Data Warehouse and Analytics Project** repository! 🚀  
-This project demonstrates a comprehensive data warehousing and analytics solution, from building a data warehouse to generating actionable insights. Designed as a portfolio project, it highlights industry best practices in data engineering and analytics.
+An end-to-end Medallion data warehouse built in SQL Server. It consolidates ERP and CRM transactional data into one analytics-ready star schema. Built as a portfolio project to show core SQL data engineering skills.
+
+![Tech Stack](https://img.shields.io/badge/-SQL%20Server-CC2927?style=flat&logo=microsoftsqlserver&logoColor=white)
+![Tech Stack](https://img.shields.io/badge/-T--SQL-4479A1?style=flat&logo=postgresql&logoColor=white)
+![Tech Stack](https://img.shields.io/badge/-SSMS-CC2927?style=flat)
+
+---
+
+## 📖 Overview
+
+This project consolidates two source systems into one model. ERP and CRM data arrives as raw CSV exports. The pipeline follows a Bronze/Silver/Gold Medallion architecture inside SQL Server. There is no cloud dependency. The focus stays on SQL fundamentals like joins, window functions, dynamic SQL and dimensional modeling.
+
+**This project demonstrates:**
+
+- Bronze/Silver/Gold Medallion architecture in T-SQL
+- ETL logic using CTEs, window functions and dynamic SQL
+- Deduplication and normalization across two source systems
+- Star schema design for analytical queries
+- Query tuning through indexing and execution plan review
 
 ---
 
 ## 🏗️ Data Architecture
 
-The data architecture for this project follows Medallion Architecture **Bronze**, **Silver**, and **Gold** layers:
 ![Data Architecture](docs/data_architecture.png)
 
-1. **Bronze Layer**: Stores raw data as-is from the source systems. Data is ingested from CSV Files into SQL Server Database.
-2. **Silver Layer**: This layer includes data cleansing, standardization, and normalization processes to prepare data for analysis.
-3. **Gold Layer**: Houses business-ready data modeled into a star schema required for reporting and analytics.
+```
+ERP CSVs  ─┐
+           ├──> Bronze (raw) ──> Silver (cleansed) ──> Gold (star schema)
+CRM CSVs  ─┘
+                                                             │
+                                                             v
+                                              Views and stored procedures for BI
+```
+
+1. **Bronze Layer**: Raw ERP and CRM data loaded as-is. No transformation.
+2. **Silver Layer**: Cleansing and normalization. Conflicts between the two sources get resolved here.
+3. **Gold Layer**: Star schema with fact and dimension tables. Includes reporting views and stored procedures.
 
 ---
 
-## 📖 Project Overview
+## 🛠️ Tech Stack & Rationale
 
-This project involves:
-
-1. **Data Architecture**: Designing a Modern Data Warehouse Using Medallion Architecture **Bronze**, **Silver**, and **Gold** layers.
-2. **ETL Pipelines**: Extracting, transforming, and loading data from source systems into the warehouse.
-3. **Data Modeling**: Developing fact and dimension tables optimized for analytical queries.
-4. **Analytics & Reporting**: Creating SQL-based reports and dashboards for actionable insights.
-
-🎯 This repository is an excellent resource for professionals and students looking to showcase expertise in:
-
-- SQL Development
-- Data Architect
-- Data Engineering
-- ETL Pipeline Developer
-- Data Modeling
-- Data Analytics
+| Tool               | Role                  | Why It's Used                                        |
+| ------------------ | --------------------- | ---------------------------------------------------- |
+| SQL Server Express | Database engine       | Free and lightweight RDBMS for warehousing           |
+| SSMS               | Development and admin | Query development and execution plan analysis        |
+| T-SQL              | Transformation logic  | Cleansing done in-database with no external ETL tool |
+| Star Schema        | Data modeling         | Built for analytical queries, not transactional ones |
+| DrawIO             | Documentation         | Architecture and data model diagrams                 |
 
 ---
 
-## 🛠️ Important Links & Tools:
+## 📸 Screenshots
 
-Everything is for Free!
+<!-- Keep this to 2-4 images in docs/screenshots/. Priority: final Gold report output first, then a passing test/validation shot, then one pipeline run. Skip code screenshots, use real code blocks instead. -->
 
-- **[Datasets](datasets/):** Access to the project dataset (csv files).
-- **[SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads):** Lightweight server for hosting your SQL database.
-- **[SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16):** GUI for managing and interacting with databases.
-- **[Git Repository](https://github.com/):** Set up a GitHub account and repository to manage, version, and collaborate on your code efficiently.
-- **[DrawIO](https://www.drawio.com/):** Design data architecture, models, flows, and diagrams.
-- **[Notion](https://www.notion.com/templates/sql-data-warehouse-project):** Get the Project Template from Notion
-- **[Notion Project Steps](https://thankful-pangolin-2ca.notion.site/SQL-Data-Warehouse-Project-16ed041640ef80489667cfe2f380b269?pvs=4):** Access to All Project Phases and Tasks.
+### Gold layer output
 
----
+![Report output](docs/screenshots/gold_report.png)
 
-## 🚀 Project Requirements
+### Query performance
 
-### Building the Data Warehouse (Data Engineering)
-
-#### Objective
-
-Develop a modern data warehouse using SQL Server to consolidate sales data, enabling analytical reporting and informed decision-making.
-
-#### Specifications
-
-- **Data Sources**: Import data from two source systems (ERP and CRM) provided as CSV files.
-- **Data Quality**: Cleanse and resolve data quality issues prior to analysis.
-- **Integration**: Combine both sources into a single, user-friendly data model designed for analytical queries.
-- **Scope**: Focus on the latest dataset only; historization of data is not required.
-- **Documentation**: Provide clear documentation of the data model to support both business stakeholders and analytics teams.
+![Execution plan](docs/screenshots/execution_plan.png)
 
 ---
-
-### BI: Analytics & Reporting (Data Analysis)
-
-#### Objective
-
-Develop SQL-based analytics to deliver detailed insights into:
-
-- **Customer Behavior**
-- **Product Performance**
-- **Sales Trends**
-
-These insights empower stakeholders with key business metrics, enabling strategic decision-making.
-
-For more details, refer to [docs/requirements.md](docs/requirements.md).
 
 ## 📂 Repository Structure
 
 ```
 data-warehouse-project/
 │
-├── datasets/                           # Raw datasets used for the project (ERP and CRM data)
-│
-├── docs/                               # Project documentation and architecture details
-│   ├── etl.drawio                      # Draw.io file shows all different techniquies and methods of ETL
-│   ├── data_architecture.drawio        # Draw.io file shows the project's architecture
-│   ├── data_catalog.md                 # Catalog of datasets, including field descriptions and metadata
-│   ├── data_flow.drawio                # Draw.io file for the data flow diagram
-│   ├── data_models.drawio              # Draw.io file for data models (star schema)
-│   ├── naming-conventions.md           # Consistent naming guidelines for tables, columns, and files
-│
-├── scripts/                            # SQL scripts for ETL and transformations
-│   ├── bronze/                         # Scripts for extracting and loading raw data
-│   ├── silver/                         # Scripts for cleaning and transforming data
-│   ├── gold/                           # Scripts for creating analytical models
-│
-├── tests/                              # Test scripts and quality files
-│
-├── README.md                           # Project overview and instructions
-├── LICENSE                             # License information for the repository
-├── .gitignore                          # Files and directories to be ignored by Git
-└── requirements.txt                    # Dependencies and requirements for the project
+├── datasets/                    # Raw ERP and CRM data (CSV)
+├── docs/
+│   ├── etl.drawio
+│   ├── data_architecture.drawio
+│   ├── data_catalog.md
+│   ├── data_flow.drawio
+│   ├── data_models.drawio
+│   ├── naming-conventions.md
+│   └── screenshots/
+├── scripts/
+│   ├── bronze/
+│   ├── silver/
+│   └── gold/
+├── tests/
+├── README.md
+├── LICENSE
+└── .gitignore
 ```
 
 ---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- SQL Server Express
+- SQL Server Management Studio (SSMS)
+
+### Setup
+
+```
+1. Create the database in SSMS
+2. Run scripts/bronze/ to load raw ERP and CRM CSVs
+3. Run scripts/silver/ to cleanse and normalize
+4. Run scripts/gold/ to build the star schema and views
+```
+
+---
+
+## 🎯 Key Technical Decisions
+
+- **T-SQL only, no external ETL tool.** This keeps the project focused on SQL depth over tool orchestration.
+- **Star schema over a normalized model.** It fits the actual query patterns for sales and customer analysis better.
+- **Latest snapshot only, no historization.** This kept scope focused. Historization is a natural next step.
+- **Indexing driven by execution plans.** Indexes got added based on observed costs, not guesswork.
+
+---
+
+## 📊 Results / Metrics
+
+- [Row counts processed across ERP and CRM sources]
+- [Number of Gold layer views and stored procedures]
+- [Measured query improvement from indexing, if benchmarked]
+
+---
+
+## 🧰 Skills Demonstrated
+
+`SQL Server` `T-SQL` `CTEs` `Window Functions` `Dynamic SQL` `Star Schema Design` `Dimensional Modeling` `Query Optimization` `Indexing` `Partitioning` `Medallion Architecture`
+
+---
+
+## 📄 License
+
+MIT. See [`LICENSE`](LICENSE).
