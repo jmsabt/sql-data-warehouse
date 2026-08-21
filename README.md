@@ -54,8 +54,9 @@ This project consolidates two source systems into one model. ERP and CRM data ar
 
 ### Gold layer output
 
-![Power BI](docs/powerbi_page_1.png)
-![Power BI](docs/powerbi_page_2.png)
+![Power BI 1](docs/powerbi_page_1.png)
+![Power BI 2](docs/powerbi_page_2.png)
+![Power BI 3](docs/powerbi_page_3.png)
 
 ### Query performance
 
