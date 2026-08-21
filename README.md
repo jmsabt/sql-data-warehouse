@@ -26,14 +26,9 @@ This project consolidates two source systems into one model. ERP and CRM data ar
 
 ![Data Architecture](docs/data_architecture.png)
 
-```
-ERP CSVs  ─┐
-           ├──> Bronze (raw) ──> Silver (cleansed) ──> Gold (star schema)
-CRM CSVs  ─┘
-                                                             │
-                                                             v
-                                              Views and stored procedures for BI
-```
+## 🏗️ Data Flow
+
+![Data Architecture](docs/data_flow.png)
 
 1. **Bronze Layer**: Raw ERP and CRM data loaded as-is. No transformation.
 2. **Silver Layer**: Cleansing and normalization. Conflicts between the two sources get resolved here.
@@ -59,7 +54,8 @@ CRM CSVs  ─┘
 
 ### Gold layer output
 
-![Report output](docs/screenshots/gold_report.png)
+![Power BI](docs/powerbi_page_1.png)
+![Power BI](docs/powerbi_page_2.png)
 
 ### Query performance
 
@@ -74,13 +70,10 @@ data-warehouse-project/
 │
 ├── datasets/                    # Raw ERP and CRM data (CSV)
 ├── docs/
-│   ├── etl.drawio
 │   ├── data_architecture.drawio
 │   ├── data_catalog.md
 │   ├── data_flow.drawio
-│   ├── data_models.drawio
-│   ├── naming-conventions.md
-│   └── screenshots/
+│   └── naming-conventions.md
 ├── scripts/
 │   ├── bronze/
 │   ├── silver/
