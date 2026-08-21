@@ -58,10 +58,6 @@ This project consolidates two source systems into one model. ERP and CRM data ar
 ![Power BI 2](docs/powerbi_page_2.png)
 ![Power BI 3](docs/powerbi_page_3.png)
 
-### Query performance
-
-![Execution plan](docs/screenshots/execution_plan.png)
-
 ---
 
 ## 📂 Repository Structure
