@@ -112,9 +112,8 @@ data-warehouse-project/
 
 ## 📊 Results / Metrics
 
-- [Row counts processed across ERP and CRM sources]
-- [Number of Gold layer views and stored procedures]
-- [Measured query improvement from indexing, if benchmarked]
+- 60,398 fact rows, 18,484 customers, 295 products in the Gold layer
+- 13 Gold layer views and 5 stored procedures
 
 ---
 
